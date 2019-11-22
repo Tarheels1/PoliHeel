@@ -4,9 +4,10 @@ import "../App.css";
 
 function About() {
   return (
-    <div>
-      <h1>About page</h1>
-    </div>
+    <body>
+      <h1>About PoliHeel</h1>
+      <div>Created by Eric D. Moreno in the fall of 2019</div>
+    </body>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,19 +12,85 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import MenuItem from "@material-ui/core/MenuItem";
+//import { app } from "firebase";
+import app from "../config/base.js";
+
+import { withRouter } from "react-router";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        PoliHeel
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
+
+const currencies = [
+  {
+    value: "AL",
+    label: "Alabama"
+  },
+  {
+    value: "AZ",
+    label: "Arizona"
+  },
+  {
+    value: "AK",
+    label: "Arkansa"
+  },
+  {
+    value: "JPY",
+    label: "¥"
+  },
+  {
+    value: "USD",
+    label: "$"
+  },
+  {
+    value: "EUR",
+    label: "€sfdgsdfgfsg"
+  },
+  {
+    value: "BTC",
+    label: "฿"
+  },
+  {
+    value: "JPY",
+    label: "¥"
+  },
+  {
+    value: "USD",
+    label: "$"
+  },
+
+  {
+    value: "BTC",
+    label: "฿"
+  },
+  {
+    value: "JPY",
+    label: "¥"
+  },
+  {
+    value: "USD",
+    label: "$"
+  },
+
+  {
+    value: "BTC",
+    label: "฿"
+  },
+  {
+    value: "JPY",
+    label: "¥"
+  }
+];
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -51,8 +117,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignUp() {
+const SignUp = ({ history }) => {
   const classes = useStyles();
+  const [currency, setCurrency] = React.useState("AL");
+  const handleChange = event => {
+    setCurrency(event.target.value);
+  };
+
+  const handleSignUp = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
+        history.push("/User");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,7 +150,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSignUp}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -94,6 +180,51 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
+                id="street"
+                label="123 Main Drive"
+                name="street"
+                autoComplete="address"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Select State"
+                fullWidth
+                className={classes.textField}
+                value={currency}
+                onChange={handleChange}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu
+                  }
+                }}
+                variant="outlined"
+              >
+                {currencies.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="zipCode"
+                label="Zip"
+                name="lastName"
+                autoComplete="zipcode"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
@@ -112,12 +243,6 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -130,7 +255,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/Login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -142,4 +267,6 @@ export default function SignUp() {
       </Box>
     </Container>
   );
-}
+};
+
+export default withRouter(SignUp);

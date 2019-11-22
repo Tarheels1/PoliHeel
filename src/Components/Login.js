@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
+import { withRouter, Redirect } from "react-router";
+import app from "../config/base.js";
+import { AuthContext } from "./Auth.js";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,7 +21,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        PoliHeel
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -51,8 +54,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignIn() {
+const Login = ({ history }) => {
   const classes = useStyles();
+
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/User");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/User" />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,7 +89,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -107,7 +132,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/Signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -119,4 +144,6 @@ export default function SignIn() {
       </Box>
     </Container>
   );
-}
+};
+
+export default withRouter(Login);
