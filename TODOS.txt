@@ -1,0 +1,6 @@
+Signup:
+Last Name isn't being saved after
+Switch all of the currency stuff
+
+MenuButton:
+Doesn't Work

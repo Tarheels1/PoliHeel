@@ -31,64 +31,207 @@ function Copyright() {
   );
 }
 
-const currencies = [
+const usStates = [
   {
     value: "AL",
     label: "Alabama"
+  },
+  {
+    value: "AK",
+    label: "Alaska"
   },
   {
     value: "AZ",
     label: "Arizona"
   },
   {
-    value: "AK",
-    label: "Arkansa"
+    value: "AR",
+    label: "Arkansas"
   },
   {
-    value: "JPY",
-    label: "¥"
+    value: "CA",
+    label: "California"
   },
   {
-    value: "USD",
-    label: "$"
+    value: "CO",
+    label: "Colorado"
   },
   {
-    value: "EUR",
-    label: "€sfdgsdfgfsg"
+    value: "CT",
+    label: "Connecticut"
   },
   {
-    value: "BTC",
-    label: "฿"
+    value: "DE",
+    label: "Delaware"
   },
   {
-    value: "JPY",
-    label: "¥"
+    value: "DC",
+    label: "Distric of Columbia"
   },
   {
-    value: "USD",
-    label: "$"
+    value: "FL",
+    label: "Florida"
+  },
+  {
+    value: "GA",
+    label: "Georgia"
+  },
+  {
+    value: "HI",
+    label: "Hawaii"
+  },
+  {
+    value: "ID",
+    label: "Idaho"
   },
 
   {
-    value: "BTC",
-    label: "฿"
+    value: "IL",
+    label: "Illinois"
   },
   {
-    value: "JPY",
-    label: "¥"
+    value: "IN",
+    label: "Indiana"
   },
   {
-    value: "USD",
-    label: "$"
-  },
-
-  {
-    value: "BTC",
-    label: "฿"
+    value: "IA",
+    label: "Iowa"
   },
   {
-    value: "JPY",
-    label: "¥"
+    value: "KS",
+    label: "Kansas"
+  },
+  {
+    value: "KY",
+    label: "Kentucky"
+  },
+  {
+    value: "LA",
+    label: "Louisiana"
+  },
+  {
+    value: "ME",
+    label: "Maine"
+  },
+  {
+    value: "MD",
+    label: "Maryland"
+  },
+  {
+    value: "MA",
+    label: "Massachusetts"
+  },
+  {
+    value: "MI",
+    label: "Michigan"
+  },
+  {
+    value: "MN",
+    label: "Minnesota"
+  },
+  {
+    value: "MS",
+    label: "Mississippi"
+  },
+  {
+    value: "MO",
+    label: "Missouri"
+  },
+  {
+    value: "MT",
+    label: "Montana"
+  },
+  {
+    value: "NE",
+    label: "Nevada"
+  },
+  {
+    value: "NH",
+    label: "New Hampshire"
+  },
+  {
+    value: "NJ",
+    label: "New Jersey"
+  },
+  {
+    value: "NM",
+    label: "New Mexico"
+  },
+  {
+    value: "NY",
+    label: "New York"
+  },
+  {
+    value: "NC",
+    label: "North Carolina"
+  },
+  {
+    value: "ND",
+    label: "North Dakota"
+  },
+  {
+    value: "OH",
+    label: "Ohio"
+  },
+  {
+    value: "OK",
+    label: "Oklahoma"
+  },
+  {
+    value: "OR",
+    label: "Oregon"
+  },
+  {
+    value: "PA",
+    label: "Pennsylvania"
+  },
+  {
+    value: "RI",
+    label: "Rhode Island"
+  },
+  {
+    value: "SC",
+    label: "South Carolina"
+  },
+  {
+    value: "SD",
+    label: "South Dakota"
+  },
+  {
+    value: "TN",
+    label: "Tennessee"
+  },
+  {
+    value: "TX",
+    label: "Texas"
+  },
+  {
+    value: "UT",
+    label: "Utah"
+  },
+  {
+    value: "VT",
+    label: "Vermont"
+  },
+  {
+    value: "VA",
+    label: "Virgina"
+  },
+  {
+    value: "WA",
+    label: "Washington"
+  },
+  {
+    value: "WV",
+    label: "West Virgina"
+  },
+  {
+    value: "WI",
+    label: "Wisconsin"
+  },
+  {
+    value: "WY",
+    label: "Wyoming"
   }
 ];
 
@@ -124,14 +267,37 @@ const SignUp = ({ history }) => {
     setCurrency(event.target.value);
   };
 
+  let db = app.firestore();
+
   const handleSignUp = useCallback(
     async event => {
       event.preventDefault();
-      const { email, password } = event.target.elements;
+
+      const {
+        email,
+        password,
+        firstName,
+        lastName,
+        street,
+        state,
+        zipCode
+      } = event.target.elements;
+
       try {
         await app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
+        let user = app.auth().currentUser;
+        db.collection("user")
+          .doc(user.uid)
+          .set({
+            FirstName: firstName.value,
+            LastName: lastName.value,
+            Street: street.value,
+            State: state.value,
+            ZipCode: zipCode.value
+          });
+
         history.push("/User");
       } catch (error) {
         alert(error);
@@ -139,6 +305,8 @@ const SignUp = ({ history }) => {
     },
     [history]
   );
+
+  //var userUID;
 
   return (
     <Container component="main" maxWidth="xs">
@@ -155,24 +323,25 @@ const SignUp = ({ history }) => {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
+                name="firstName"
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete="lname"
                 variant="outlined"
                 required
                 fullWidth
                 id="lastName"
                 label="Last Name"
                 name="lastName"
-                autoComplete="lname"
+                autofoucs
               />
             </Grid>
             <Grid item xs={12}>
@@ -191,6 +360,7 @@ const SignUp = ({ history }) => {
                 id="outlined-select-currency"
                 select
                 label="Select State"
+                name="state"
                 fullWidth
                 className={classes.textField}
                 value={currency}
@@ -202,7 +372,7 @@ const SignUp = ({ history }) => {
                 }}
                 variant="outlined"
               >
-                {currencies.map(option => (
+                {usStates.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
