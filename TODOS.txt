@@ -1,6 +1,12 @@
 Signup:
 Last Name isn't being saved after
-Switch all of the currency stuff
+
 
 MenuButton:
 Doesn't Work
+
+Other:
+Searchbar doesn't Work & debouncing
+Need to fix when switching pages it shows up white first 
+Create Userpage
+Need to add ability to delete and remove a rep

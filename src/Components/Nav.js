@@ -37,9 +37,7 @@ function Nav() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-            </Typography>
+            <Typography variant="h6" className={classes.title}></Typography>
 
             <Button color="inherit" component={Link} to="/">
               Home
