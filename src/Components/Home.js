@@ -11,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import shadows from "@material-ui/core/styles/shadows";
 import { black } from "material-ui/styles/colors";
 import { fontFamily } from "@material-ui/system";
+import axios from "axios";
+import Button from "@material-ui/core/Button";
 
 function sleep(delay = 0) {
   return new Promise(resolve => {
@@ -39,28 +41,55 @@ let textStyle = {
   fontSize: "20px"
 };
 
-function Home() {
+function Home({ history }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
+  const [congress, setCongress] = React.useState([]);
   const loading = open && options.length === 0;
+
+  function handleClick(e) {
+    let value = e.target.value;
+    console.log(value);
+  }
 
   React.useEffect(() => {
     let active = true;
+    let allMembers = [];
 
     if (!loading) {
       return undefined;
     }
 
     (async () => {
-      const response = await fetch(
-        "https://country.register.gov.uk/records.json?page-size=5000"
+      let response = await axios.get(
+        `https://api.propublica.org/congress/v1/116/senate/members.json`,
+        {
+          headers: { "X-API-Key": "9wGKmWl3kNiiSqesJf74uGl0PtStbcP2mEzSvjxv" }
+        }
       );
-      await sleep(1e3); // For demo purposes.
-      const countries = await response.json();
+
+      let response2 = await axios.get(
+        `https://api.propublica.org/congress/v1/116/house/members.json`,
+        {
+          headers: { "X-API-Key": "9wGKmWl3kNiiSqesJf74uGl0PtStbcP2mEzSvjxv" }
+        }
+      );
+      console.log(response.data);
+      let data = response.data.results[0].members;
+      let data2 = response2.data.results[0].members;
+
+      for (let i = 0; i < data.length; i++) {
+        allMembers.push(data[i].first_name + " " + data[i].last_name);
+      }
+      for (let i = 0; i < data2.length; i++) {
+        allMembers.push(data2[i].first_name + " " + data2[i].last_name);
+      }
 
       if (active) {
-        setOptions(Object.keys(countries).map(key => countries[key].item[0]));
+        setOptions(allMembers);
       }
+
+      //setCongress(data);
     })();
 
     return () => {
@@ -106,7 +135,7 @@ function Home() {
             onClose={() => {
               setOpen(false);
             }}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => option}
             options={options}
             loading={loading}
             renderInput={params => (
@@ -115,6 +144,8 @@ function Home() {
                 label="Enter Congress Member Here"
                 fullWidth
                 variant="outlined"
+                inputValue
+                onChange={handleClick}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (

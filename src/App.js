@@ -5,6 +5,7 @@ import Nav from "./Components/Nav";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
 import User from "./Components/User";
+import RepRequest from "./RepRequest";
 //renamined browerser router as router
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUp from "./Components/Signup";
@@ -22,6 +23,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/about" component={About} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/rep" component={RepRequest} />
             <PrivateRoute exact path="/user" component={User} />
           </Switch>
         </div>
