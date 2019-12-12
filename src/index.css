@@ -24,6 +24,16 @@ code {
   background-image: url("./uncpic2.jpg");
   background-repeat: repeat;
   background-size: cover;
+  padding-top: 30px;
+  padding-bottom: 23px;
+}
+
+.img2 {
+  background-image: url("./uncpic2.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  padding-top: 50px;
+  padding-bottom: 8%;
 }
 
 #search {
@@ -88,4 +98,15 @@ code {
   padding-right: 8px;
   font-family: "Merriweather", serif;
   font-size: 20px;
+}
+.aboutGrid {
+  background-color: "transparent";
+}
+
+.aboutText {
+  color: white;
+  text-shadow: 2px 5px 3px rgba(0, 0, 0, 1);
+  font-weight: bold;
+  font-family: "Merriweather", serif;
+  font-size: 25px;
 }

@@ -80,7 +80,7 @@ const Login = ({ history }) => {
   }
 
   return (
-    <div className="img">
+    <div className="img2">
       <Container className="a1" component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

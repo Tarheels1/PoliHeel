@@ -8,6 +8,7 @@ import { Timeline } from "react-twitter-widgets";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Container } from "@material-ui/core";
+import Portal from "@material-ui/core/Portal";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,9 +21,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const useStyles1 = makeStyles(theme => ({
+  alert: {
+    padding: theme.spacing(1),
+    margin: theme.spacing(1, 0),
+    border: "1px solid"
+  }
+}));
+
 class RepRequest extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userInfo: [],
       fedSens: [],
@@ -32,7 +42,9 @@ class RepRequest extends React.Component {
       userFedRep: [],
       userFedSen: [],
       error: null,
-      testerA: []
+      testerA: [],
+      showMessage: false,
+      value: null
     };
   }
 
@@ -162,6 +174,24 @@ class RepRequest extends React.Component {
       });
   }
 
+  getInitialState() {
+    return {
+      textFieldValue: ""
+    };
+  }
+
+  _handleTextFieldChange = e => {
+    this.setState({
+      value: e.target.value
+    });
+  };
+
+  _showMessage = bool => {
+    this.setState({
+      showMessage: bool
+    });
+  };
+
   render() {
     //address if can't load
     if (this.state.error != null) {
@@ -241,6 +271,30 @@ class RepRequest extends React.Component {
       let repInfo = [];
       let fedReps = this.state.fedReps.data.results[0].members;
       let fedSens = this.state.fedSens.data.results[0].members;
+      let stateRepTwitter = "";
+      let stateSenTwitter = "";
+      let searchRep = [];
+
+      console.log(this.state.value);
+
+      for (let i = 0; i < fedSens.length; i++) {
+        if (
+          fedSens[i].first_name + " " + fedSens[i].last_name ==
+          this.state.value
+        ) {
+          searchRep.push(fedSens[i]);
+        }
+      }
+      for (let i = 0; i < fedReps.length; i++) {
+        if (
+          fedReps[i].first_name + " " + fedReps[i].last_name ==
+          this.state.value
+        ) {
+          searchRep.push(fedReps[i]);
+        }
+      }
+
+      console.log(searchRep);
 
       for (let i = 0; i < fedReps.length; i++) {
         if (
@@ -256,7 +310,21 @@ class RepRequest extends React.Component {
           senInfo.push(this.state.fedSens.data.results[0].members[i]);
         }
       }
-      console.log(this.state.userStateRep.data.officials[0]);
+
+      if (this.state.userStateRep.data.officials[0].channels[1] == null) {
+        stateRepTwitter = "No Twitter";
+      } else {
+        stateRepTwitter = this.state.userStateRep.data.officials[0].channels[1]
+          .id;
+      }
+
+      if (this.state.userStateSen.data.officials[0].channels[1] == null) {
+        stateSenTwitter = "No Twitter";
+      } else {
+        stateSenTwitter = this.state.userStateSen.data.officials[0].channels[1]
+          .id;
+      }
+
       return (
         <div className="user-img">
           <div>
@@ -483,7 +551,7 @@ class RepRequest extends React.Component {
                   <Timeline
                     dataSource={{
                       sourceType: "profile",
-                      screenName: "wileynickel"
+                      screenName: stateSenTwitter
                     }}
                     options={{
                       username: "TomTillis",
@@ -537,8 +605,7 @@ class RepRequest extends React.Component {
                   <Timeline
                     dataSource={{
                       sourceType: "profile",
-                      screenName: this.state.userStateRep.data.officials[0]
-                        .channels[0].id
+                      screenName: stateRepTwitter
                     }}
                     options={{
                       username: "TomTillis",
@@ -560,9 +627,94 @@ class RepRequest extends React.Component {
               size="small"
               fullWidth
               variant="filled"
+              value={this.state.textFieldValue}
+              onChange={this._handleTextFieldChange}
             />
           </Container>
 
+          <br></br>
+
+          <div>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={this._showMessage.bind(null, true)}
+            >
+              Show Member
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={this._showMessage.bind(null, false)}
+            >
+              Hide Member
+            </Button>
+            {this.state.showMessage && (
+              //search
+              <div>
+                <Grid className="Grid" container spacing={3} justify="center">
+                  <Grid item xs>
+                    <Paper>
+                      <h2 className="gridHeading">
+                        {searchRep[0].first_name + " " + searchRep[0].last_name}
+                      </h2>
+                      <ul>
+                        <li align="left">Party - {searchRep[0].party} </li>
+                        <li align="left">
+                          D.O.B - {searchRep[0].date_of_birth}{" "}
+                        </li>
+                        <li align="left">Office - {searchRep[0].office} </li>
+                        <li align="left">Office - {searchRep[0].phone} </li>
+                      </ul>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs>
+                    <Paper>
+                      <h2 class="gridHeading">Voting Infomation</h2>
+                      <ul>
+                        <li align="left">
+                          Election year - {searchRep[0].next_election}{" "}
+                        </li>
+                        <li align="left">
+                          Total Votes Cast - {searchRep[0].total_votes}{" "}
+                        </li>
+                        <li align="left">
+                          Missed Votes - {searchRep[0].missed_votes}{" "}
+                        </li>
+                        <li align="left">
+                          Missed Votes Percentage -{" "}
+                          {searchRep[0].missed_votes_pct}{" "}
+                        </li>
+                        <li align="left">
+                          Votes With Party Percentage -{" "}
+                          {searchRep[0].votes_with_party_pct}{" "}
+                        </li>
+                        <li align="left">
+                          Votes Against Party Percentage -{" "}
+                          {searchRep[0].votes_against_party_pct}{" "}
+                        </li>
+                      </ul>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs>
+                    <Paper>
+                      <Timeline
+                        dataSource={{
+                          sourceType: "profile",
+                          screenName: searchRep[0].twitter_account
+                        }}
+                        options={{
+                          username: "TomTillis",
+                          height: "400"
+                        }}
+                        onLoad={() => console.log("Timeline is loaded!")}
+                      />
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </div>
+            )}
+          </div>
           <br></br>
           <Button
             variant="outlined"
@@ -571,6 +723,9 @@ class RepRequest extends React.Component {
           >
             Sign Out
           </Button>
+          <br></br>
+
+          <div>{searchRep.first_name}</div>
         </div>
       );
     }
