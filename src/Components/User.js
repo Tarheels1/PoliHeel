@@ -31,7 +31,8 @@ class RepRequest extends React.Component {
       userStateSen: [],
       userFedRep: [],
       userFedSen: [],
-      error: null
+      error: null,
+      testerA: []
     };
   }
 
@@ -74,7 +75,10 @@ class RepRequest extends React.Component {
         fedSens: rest1,
         fedReps: rest2
       });
-      this.getReps(this.state.userInfo);
+
+      setTimeout(() => {
+        this.getReps(this.state.userInfo);
+      }, 3000);
     });
   }
 
@@ -159,11 +163,22 @@ class RepRequest extends React.Component {
   }
 
   render() {
+    //address if can't load
     if (this.state.error != null) {
       return (
         <div>
           <span>You're address could not be found</span>
-          <button onClick={() => app.auth().signOut()}>Sign Out</button>
+          <br></br>
+          <br></br>
+          <span>Please hit the return button to try again</span>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => app.auth().signOut()}
+          >
+            Return
+          </Button>
         </div>
       );
     } else if (
@@ -173,7 +188,15 @@ class RepRequest extends React.Component {
       return (
         <div>
           <span>Loading...</span>
-          <button onClick={() => app.auth().signOut()}>Sign Out</button>
+          <br></br>
+          <br></br>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => app.auth().signOut()}
+          >
+            Sign Out
+          </Button>
         </div>
       );
     } else if (
@@ -183,17 +206,36 @@ class RepRequest extends React.Component {
       return (
         <div>
           <span>Loading...</span>
-          <button onClick={() => app.auth().signOut()}>Sign Out</button>
+          <br></br>
+          <br></br>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => app.auth().signOut()}
+          >
+            Sign Out
+          </Button>
         </div>
       );
     } else if (this.state.userFedSen <= 0 && this.state.userStateSen <= 0) {
       return (
         <div>
           <span>Loading...</span>
-          <button onClick={() => app.auth().signOut()}>Sign Out</button>
+          <br></br>
+          <br></br>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => app.auth().signOut()}
+          >
+            Sign Out
+          </Button>
         </div>
       );
-    } else {
+    }
+
+    //once everything loads
+    else {
       let person = "";
       let senInfo = [];
       let repInfo = [];
@@ -214,14 +256,14 @@ class RepRequest extends React.Component {
           senInfo.push(this.state.fedSens.data.results[0].members[i]);
         }
       }
-      console.log(senInfo);
+      console.log(this.state.userStateRep.data.officials[0]);
       return (
         <div className="user-img">
           <div>
             <h2 align="left" className="title">
               Federal Senators
             </h2>
-            <Grid container spacing={3} justify="center">
+            <Grid className="Grid" container spacing={3} justify="center">
               <Grid item xs>
                 <Paper>
                   <h2 className="gridHeading">
@@ -279,7 +321,7 @@ class RepRequest extends React.Component {
               </Grid>
             </Grid>
 
-            <Grid container spacing={3} justify="center">
+            <Grid className="Grid" container spacing={3} justify="center">
               <Grid item xs>
                 <Paper>
                   <h2 class="gridHeading">
@@ -342,7 +384,7 @@ class RepRequest extends React.Component {
             <h2 className="title" align="left">
               Federal Representative
             </h2>
-            <Grid container spacing={3} justify="center">
+            <Grid className="Grid" container spacing={3} justify="center">
               <Grid item xs>
                 <Paper>
                   <h2 class="gridHeading">
@@ -405,7 +447,7 @@ class RepRequest extends React.Component {
             <h2 className="title" align="left">
               State Senator
             </h2>
-            <Grid container spacing={3} justify="center">
+            <Grid className="Grid" container spacing={3} justify="center">
               <Grid item xs>
                 <Paper>
                   <h2 class="gridHeading">
@@ -441,7 +483,7 @@ class RepRequest extends React.Component {
                   <Timeline
                     dataSource={{
                       sourceType: "profile",
-                      screenName: "TomTillis"
+                      screenName: "wileynickel"
                     }}
                     options={{
                       username: "TomTillis",
@@ -459,17 +501,35 @@ class RepRequest extends React.Component {
               State Representative
             </h2>
 
-            <Grid container spacing={3} justify="center">
+            <Grid className="Grid" container spacing={3} justify="center">
               <Grid item xs>
                 <Paper>
                   <h2 class="gridHeading">
                     {this.state.userStateRep.data.officials[0].name}
                   </h2>
+                  <ul>
+                    <li align="left">
+                      Party - {this.state.userStateRep.data.officials[0].party}
+                    </li>
+                    <li align="left">
+                      Street -{" "}
+                      {
+                        this.state.userStateRep.data.officials[0].address[0]
+                          .line1
+                      }
+                    </li>
+                  </ul>
                 </Paper>
               </Grid>
               <Grid item xs>
                 <Paper>
-                  <h6>hello</h6>
+                  <h2>More info</h2>
+                  <ul>
+                    <li>
+                      Email -{" "}
+                      {this.state.userStateRep.data.officials[0].emails[0]}
+                    </li>
+                  </ul>
                 </Paper>
               </Grid>
               <Grid item xs>
@@ -478,7 +538,7 @@ class RepRequest extends React.Component {
                     dataSource={{
                       sourceType: "profile",
                       screenName: this.state.userStateRep.data.officials[0]
-                        .channels[1].id
+                        .channels[0].id
                     }}
                     options={{
                       username: "TomTillis",

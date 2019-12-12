@@ -82,7 +82,7 @@ class RepRequest extends React.Component {
         `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBbGJ3XcM9-XacuimgHWxbeJb3FPkZydsY`,
         {
           params: {
-            address: tester[0].Street,
+            address: "27613",
             includeOffices: true,
             levels: "country",
             roles: "legislatorLowerBody"
@@ -97,7 +97,7 @@ class RepRequest extends React.Component {
         `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBbGJ3XcM9-XacuimgHWxbeJb3FPkZydsY`,
         {
           params: {
-            address: tester[0].Street,
+            address: "27613",
             includeOffices: true,
             levels: "administrativeArea1",
             roles: "legislatorLowerBody"
@@ -112,7 +112,7 @@ class RepRequest extends React.Component {
         `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBbGJ3XcM9-XacuimgHWxbeJb3FPkZydsY`,
         {
           params: {
-            address: tester[0].Street,
+            address: "27613",
             includeOffices: true,
             levels: "country",
             roles: "legislatorUpperBody"
@@ -127,7 +127,7 @@ class RepRequest extends React.Component {
         `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBbGJ3XcM9-XacuimgHWxbeJb3FPkZydsY`,
         {
           params: {
-            address: tester[0].Street,
+            address: "26713",
             includeOffices: true,
             levels: "administrativeArea1",
             roles: "legislatorUpperBody"

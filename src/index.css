@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Gelasio&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap");
 
 body {
   margin: 0;
@@ -64,9 +65,7 @@ code {
 }
 
 .user-img {
-  background-color: rgb(75, 156, 211, 0.4);
-
-  /* Center and scale the image nicely */
+  background-color: rgb(225, 225, 225);
 }
 
 .title {
@@ -75,8 +74,18 @@ code {
   color: rgb(0, 44, 73);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   text-decoration: underline;
+  padding-top: 20px;
+  margin-top: auto;
+  font-size: 40px;
 }
 
 .gridHeading {
   font-family: "Gelasio", serif;
+}
+
+.Grid {
+  padding-left: 8px;
+  padding-right: 8px;
+  font-family: "Merriweather", serif;
+  font-size: 20px;
 }
