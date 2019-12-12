@@ -203,7 +203,7 @@ function Home({ history }) {
             color="primary"
             onClick={handleNewClick}
           >
-            {show ? "Unmount children" : "Mount children"}
+            {show ? "Unmount children" : "Search Member"}
           </Button>
           <div className={classes.alert}>
             {show ? (
