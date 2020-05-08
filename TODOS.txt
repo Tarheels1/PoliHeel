@@ -10,3 +10,6 @@ Searchbar doesn't Work & debouncing
 Need to fix when switching pages it shows up white first 
 Create Userpage
 Need to add ability to delete and remove a rep
+
+Future:
+    Member of the day

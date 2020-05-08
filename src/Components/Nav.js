@@ -9,16 +9,16 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 function Nav() {
@@ -37,20 +37,18 @@ function Nav() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}></Typography>
-
+            <Typography variant="h6" className={classes.title} align="justify">
+              PoliHeel
+            </Typography>
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>
-
             <Button color="inherit" component={Link} to="/about">
               About
             </Button>
-
             <Button color="inherit" component={Link} to="/signup">
               SignUp
             </Button>
-
             <Button color="inherit" component={Link} to="/login">
               Login
             </Button>

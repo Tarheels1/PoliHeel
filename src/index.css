@@ -15,6 +15,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New";
 }
 
+h1 {
+  margin: 0;
+}
+
+.MuiAutocomplete-inputRoot {
+  background-color: rgba(238, 238, 238, 0.281);
+  width: 500px;
+}
 .a1 {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 25px;
@@ -34,10 +42,6 @@ code {
   background-size: cover;
   padding-top: 50px;
   padding-bottom: 8%;
-}
-
-#search {
-  border-radius: 50%;
 }
 
 .contain {
@@ -63,7 +67,7 @@ code {
 .heading {
   font-family: "Cinzel", serif;
   color: rgb(75, 156, 211, 1);
-  text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 5px 3px rgb(118, 118, 118);
 }
 
 .regular {
