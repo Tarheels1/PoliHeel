@@ -11,8 +11,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUp from "./Components/Signup";
 import PrivateRoute from "./Components/PrivateRoute";
 import { AuthProvider } from "./Components/Auth";
-import MemberSearch from "./Components/Children/MemberSearch";
+import MemberSearch from "./Components/MemberSearch";
 import UserTester from "./Components/UserTester";
+import SearchBar from "./Components/SearchBar";
+import Test from "./Components/Test";
 
 function App() {
   return (
@@ -29,7 +31,6 @@ function App() {
               <Route path="/signup" component={SignUp} />
               <Route path="/rep" component={RepRequest} />
               <Route path="/test" component={MemberSearch} />
-              <Route path="/test2" component={UserTester} />
               <PrivateRoute exact path="/user" component={User} />
             </Switch>
           </div>

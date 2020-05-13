@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RenderToLayer from "material-ui/internal/RenderToLayer";
 import axios from "axios";
-import SearchBar from "../SearchBar";
+import SearchBar from "./SearchBar";
 
 //need member location to come in state and zip?
 //have then after return members
@@ -10,6 +10,8 @@ function MemberSearch() {
     senators: [],
     representatives: [],
   });
+  const [loading, setLoading] = useState(false);
+  let membersData = {};
 
   //sets federal congress members
   useEffect(() => {
@@ -38,15 +40,29 @@ function MemberSearch() {
         senators: fedSens.data.results[0].members,
         representatives: fedreps.data.results[0].members,
       });
+
+      setLoading(true);
     };
     fetchData();
   }, []);
 
-  return (
-    <div>
-      <SearchBar mems={fedMembers.senators[0]} />
-    </div>
-  );
+  if (loading) {
+    fedMembers.senators.forEach((senator) => {
+      membersData[senator.first_name + " " + senator.last_name] = senator;
+    });
+    fedMembers.representatives.forEach((rep) => {
+      membersData[rep.first_name + " " + rep.last_name] = rep;
+    });
+
+    //console.log(membersData);
+    return (
+      <div>
+        <SearchBar mems={fedMembers} membersData={membersData} />
+      </div>
+    );
+  } else {
+    return <div>loading</div>;
+  }
 }
 
 export default MemberSearch;

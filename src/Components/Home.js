@@ -1,17 +1,13 @@
 import React from "react";
 import "../App.css";
 import Background from "../uncpic1.jpg";
-
+import { useState } from "react";
 import "isomorphic-fetch";
 import Container from "@material-ui/core/Container";
 import "typeface-roboto";
 import Typography from "@material-ui/core/Typography";
-
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import SearchBar from "./SearchBar";
-import { white } from "material-ui/styles/colors";
+import MemberSearch from "./MemberSearch";
 
 let backgroundImgStyle = {
   width: "100vw",
@@ -42,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home({ history }) {
+function Home(mems) {
+  const [selectedMember, setSelectedMember] = useState();
+
   return (
     <div>
       <Container style={backgroundImgStyle} maxWidth>
@@ -56,7 +54,7 @@ function Home({ history }) {
         </Typography>
         <div>
           <Container maxWidth="lg" style={{}}>
-            <SearchBar />
+            <MemberSearch />
           </Container>
         </div>
       </Container>
