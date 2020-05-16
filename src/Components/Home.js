@@ -1,17 +1,17 @@
 import React from "react";
 import "../App.css";
-import Background from "../uncpic1.jpg";
+import Background from "../uncpic1-64.jpg";
 import { useState } from "react";
 import "isomorphic-fetch";
 import Container from "@material-ui/core/Container";
 import "typeface-roboto";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, rgbToHex } from "@material-ui/core/styles";
 import MemberSearch from "./MemberSearch";
 
 let backgroundImgStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "100vh  ",
   backgroundImage: `url(${Background})`,
   backgroundPosition: "center",
   backgroundSize: "cover",
@@ -25,7 +25,7 @@ let headingStyle = {
 };
 
 let textStyle = {
-  color: "white",
+  color: "rgb(19, 41, 75)",
   padding: "20px",
   display: "block",
   fontSize: "20px",
@@ -42,22 +42,20 @@ function Home(mems) {
   const [selectedMember, setSelectedMember] = useState();
 
   return (
-    <div>
-      <Container style={backgroundImgStyle} maxWidth>
-        <h1 className="heading" style={headingStyle}>
-          Welcome to PoliHeel!
-        </h1>
-        <Typography className="regular" variant="subtitle1" style={textStyle}>
-          To search a member of congress enter their name below.
-          <br></br>
-          Or signup to view all your federal and local officials!
-        </Typography>
-        <div>
-          <Container maxWidth="lg" style={{}}>
-            <MemberSearch />
-          </Container>
-        </div>
-      </Container>
+    <div style={backgroundImgStyle}>
+      <div>
+        <Container maxWidth>
+          <Typography className="regular" variant="subtitle1" style={textStyle}>
+            To search a member of congress enter their name below.
+            <br></br>
+            Or signup to view all your federal and local officials!
+          </Typography>
+        </Container>
+        <Container maxWidth="lg" style={{}}>
+          <MemberSearch />
+        </Container>
+      </div>
+      <Container></Container>
     </div>
   );
 }

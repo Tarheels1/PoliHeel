@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchedMember from "./SearchedMember";
+import Fade from "@material-ui/core/Fade";
 
 function SearchBar({ mems, membersData }) {
   const [membersNames, setMembersNames] = useState([]);
   const [allMemberinfo, setAllMemberInfo] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [value, setValue] = useState("Select or Type Member");
+  const [value, setValue] = useState();
   const [showResult, setShowResults] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   function handleClick(e) {
     e.preventDefault();
@@ -46,9 +48,11 @@ function SearchBar({ mems, membersData }) {
         }}
         onKeyDown={handleKeyDown}
         renderInput={(params) => (
-          <TextField {...params} label="Combo box" variant="outlined" />
+          <TextField {...params} label="Select a Member" variant="outlined" />
         )}
       />
+      <br></br>
+
       {showResult ? (
         <SearchedMember member={value} membersData={membersData} />
       ) : null}

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
-import Container from "@material-ui/core/Container";
-import MemberSearch from "./MemberSearch";
+import Fade from "@material-ui/core/Fade";
+import Typography from "material-ui/styles/typography";
+import TabBar from "./TabBar";
+import "typeface-roboto";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ function SearchedMember(props) {
 
   useEffect(() => {
     let id = props.membersData[props.member].id;
-    let url = "https://theunitedstates.io/images/congress/original/";
+    let url = "https://theunitedstates.io/images/congress/225x275/";
     let urlEnding = ".jpg";
     let combinedUrl = url + id + urlEnding;
     setMemberPicture(combinedUrl);
@@ -36,24 +37,28 @@ function SearchedMember(props) {
   } else {
     return (
       <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs>
-            <Paper>
-              Name<br></br>
-              {props.member}
-              <br></br>
-              {props.membersData[props.member].id}
-              <br></br>
-              <img src={memberPicture}></img>
-            </Paper>
+        <Fade in={true}>
+          <Grid className="mainGrid" container spacing={2}>
+            <Grid item xs={3}>
+              <Paper elevation={3} variant="outlined">
+                {props.member} Party - {props.membersData[props.member].party}
+                <br></br>
+                <img src={memberPicture}></img>
+              </Paper>
+            </Grid>
+            <Grid item xs>
+              <Paper elevation={3} variant="outlined">
+                <TabBar
+                  election={props.membersData[props.member].next_election}
+                  leadershipRole={
+                    props.membersData[props.member].leadership_role
+                  }
+                />
+                Sign in or Sign up to view more information!
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <Paper>hello1</Paper>
-          </Grid>
-          <Grid item xs>
-            <Paper>hello2</Paper>
-          </Grid>
-        </Grid>
+        </Fade>
       </div>
     );
   }

@@ -5,7 +5,7 @@ function Test() {
   const [memberPicture, setMemberPicture] = useState();
   const [loading, setLoading] = useState(true);
   let testing = "A000360";
-  let url = "https://theunitedstates.io/images/congress/original/";
+  let url = "https://theunitedstates.io/images/congress/225x275/";
   let urlEnding = ".jpg";
   let combine = url + testing + urlEnding;
 

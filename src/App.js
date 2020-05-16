@@ -15,6 +15,7 @@ import MemberSearch from "./Components/MemberSearch";
 import UserTester from "./Components/UserTester";
 import SearchBar from "./Components/SearchBar";
 import Test from "./Components/Test";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           </div>
         </Router>
       </AuthProvider>
+      <Footer />
     </div>
   );
 }
