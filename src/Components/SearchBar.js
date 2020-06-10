@@ -29,6 +29,9 @@ function SearchBar({ mems, membersData }) {
       setShowResults(true);
     }
   }
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
 
   return (
     <div>
@@ -54,7 +57,9 @@ function SearchBar({ mems, membersData }) {
       <br></br>
 
       {showResult ? (
-        <SearchedMember member={value} membersData={membersData} />
+        <Fade in={checked} time={1000}>
+          <SearchedMember member={value} membersData={membersData} />
+        </Fade>
       ) : null}
     </div>
   );

@@ -6,6 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "material-ui/styles/typography";
 import TabBar from "./TabBar";
 import "typeface-roboto";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,27 +34,28 @@ function SearchedMember(props) {
   });
 
   if (loading) {
-    return <div>loading</div>;
+    return <CircularProgress />;
   } else {
     return (
       <div className={classes.root}>
-        <Fade in={true}>
+        <Fade in={true} timeout={900}>
           <Grid className="mainGrid" container spacing={2}>
             <Grid item xs={3}>
               <Paper elevation={3} variant="outlined">
-                {props.member} Party - {props.membersData[props.member].party}
-                <br></br>
-                <img src={memberPicture}></img>
+                <h3>
+                  {props.membersData[props.member].short_title} {props.member}
+                  <br></br>
+                  {states[props.membersData[props.member].state]} - {""}
+                  {props.membersData[props.member].party}
+                </h3>
+                <Fade in={true} timeout={800}>
+                  <img src={memberPicture}></img>
+                </Fade>
               </Paper>
             </Grid>
             <Grid item xs>
               <Paper elevation={3} variant="outlined">
-                <TabBar
-                  election={props.membersData[props.member].next_election}
-                  leadershipRole={
-                    props.membersData[props.member].leadership_role
-                  }
-                />
+                <TabBar member={props.membersData[props.member]} />
                 Sign in or Sign up to view more information!
               </Paper>
             </Grid>
@@ -65,3 +67,57 @@ function SearchedMember(props) {
 }
 
 export default SearchedMember;
+
+const states = {
+  AL: "Alabama",
+  AK: "Alaska",
+  AZ: "Arizona",
+  AR: "Arkansas",
+  CA: "California",
+  CO: "Colorado",
+  CT: "Connecticut",
+  DE: "Delaware",
+  DC: "District of Columbia",
+  FL: "Florida",
+  GA: "Georgia",
+  HI: "Hawaii",
+  ID: "Idaho",
+  IL: "Illinois",
+  IN: "Indiana",
+  IA: "Iowa",
+  KS: "Kansas",
+  KY: "Kentucky",
+  LA: "Louisiana",
+  ME: "Maine",
+  MD: "Maryland",
+  MA: "Massachusetts",
+  MI: "Michigan",
+  MN: "Minnesota",
+  MS: "Mississippi",
+  MO: "Missouri",
+  MT: "Montana",
+  NE: "Nebraska",
+  NV: "Nevada",
+  NH: "New Hampshire",
+  NJ: "New Jersey",
+  NM: "New Mexico",
+  NY: "New York",
+  NC: "North Carolina",
+  ND: "North Dakota",
+  OH: "Ohio",
+  OK: "Oklahoma",
+  OR: "Oregon",
+  PA: "Pennsylvania",
+  RI: "Rhode Island",
+  SC: "South Carolina",
+  SD: "South Dakota",
+  TN: "Tennessee",
+  TX: "Texas",
+  UT: "Utah",
+  VT: "Vermont",
+  VA: "Virginia",
+  WA: "Washington",
+  WV: "West Virgina",
+  WI: "Wisconsin",
+  WY: "Wyoming",
+};

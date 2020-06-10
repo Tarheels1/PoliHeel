@@ -6,6 +6,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import Link from "@material-ui/core/Link";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TabBar(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const preventDefault = (event) => event.preventDefault();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -69,16 +72,34 @@ export default function TabBar(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Next Election Year : {props.election}
-        <br></br>
+        Next Election Year : {props.member.next_election}
+        <br />
+        Seniority: {props.member.seniority}
+        <br />
         Leadership Role :{" "}
-        {props.leadershipRole ? props.leadershipRole : "No current role"}
+        {props.member.leadership_role
+          ? props.member.leadership_role
+          : "No current role"}
+        <br />
+        Party Voting Allegiance: {props.member.votes_with_party_pct} %
+        <br />
+        Missed Votes Percentage: {props.member.missed_votes_pct} %
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        Office: {props.member.office}
+        <br></br>
+        Phone: {props.member.phone}
+        <br></br>
+        Fax: {props.memberfax ? props.memberfax : "no fax available"}
+        <br></br>
+        Facebook:
+        <br></br>
+        Instagram:
+        <br></br>
+        Twitter:
       </TabPanel>
     </div>
   );
