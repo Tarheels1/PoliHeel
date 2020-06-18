@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchedMember(props) {
   const classes = useStyles();
-  const [memberPicture, setMemberPicture] = useState();
+  const [memberPicture, setMemberPicture] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

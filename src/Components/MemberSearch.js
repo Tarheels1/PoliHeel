@@ -57,9 +57,6 @@ function MemberSearch() {
     //console.log(membersData);
     return (
       <div>
-        <br></br>
-        <br></br>
-        <br></br>
         <SearchBar mems={fedMembers} membersData={membersData} />
       </div>
     );
