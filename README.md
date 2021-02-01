@@ -7,6 +7,7 @@ PoliHeel was a school personal project currently undergoing refactoring to impro
   
 - Signup
   - After a user signs up and provides their location, all of their federal and state congressional members are displayed
+  - Displays a members tweets
   
 ## Future Features
  - Current Redesign
@@ -23,3 +24,11 @@ PoliHeel was a school personal project currently undergoing refactoring to impro
 - Propublica API
 
  ## Current Look 
+ 
+ Home Page
+ 
+ ![alt text](https://github.com/moreno-e/PoliHeel/blob/master/Screenshot_Home.jpg)
+ 
+ User Page
+ 
+ ![alt text](https://github.com/moreno-e/PoliHeel/blob/master/Screenshot_UserPage.png)
