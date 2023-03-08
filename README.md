@@ -26,9 +26,5 @@ PoliHeel was a school personal project currently undergoing refactoring to impro
  ## Current Look 
  
  Home Page
+![Poliheel](https://user-images.githubusercontent.com/42720283/223798749-17111ab9-a56b-40a4-a7f5-20d818ee58c2.jpg)
  
- ![alt text](https://github.com/moreno-e/PoliHeel/blob/master/Screenshot_Home.jpg)
- 
- User Page
- 
- ![alt text](https://github.com/moreno-e/PoliHeel/blob/master/Screenshot_UserPage.png)
